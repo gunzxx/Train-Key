@@ -1,5 +1,5 @@
 # Tugas Akhir Mata Kuliah Pemrograman Berbasis Web
-# Anggota kelompok : 
+## Anggota kelompok : 
 - Guntur Wahyudi (212410102072)
 - Farhan Burhanudin S. (212410102033)
 - M. Bayu Dwi Praptama (2124101020
