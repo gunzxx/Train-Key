@@ -1,0 +1,48 @@
+table{
+    background-color: #fff;
+    border-collapse: collapse;
+    width: 40%;
+    min-height: 100px;
+}
+/* thead */
+td{
+    font-size: 14px;
+    /* border: 1px solid #000; */
+    border: none;
+    padding: 5px;
+}
+.col1{
+    padding-left: 30px;
+    width: 40%;
+}
+.col2{
+    padding-right: 30px;
+    text-align: right;
+}
+
+
+
+.teksLabel{
+    width: 60%;
+    padding: 20px;
+    background-color: #5DA7DB;
+    border-radius: 20px;
+    color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    box-shadow: -4px 4px 4px rgba(255, 255, 255, .5);
+    /* overflow: scroll; */
+}
+
+
+.userArea{
+    font-size: 24px;
+    /* background-color: #fff; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
