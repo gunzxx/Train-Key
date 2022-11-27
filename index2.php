@@ -30,8 +30,8 @@ $sample = cekKataArray($sample);
             <h1>Train Key</h1>
         </a>
         <div class="sub-nav">
-            <a class="nav-list">
-                <p>Ranking</p>
+            <a class="nav-list" href="chat" target="_blank">
+                <p>Forum</p>
             </a>
             <a class="nav-list">
                 <p>Help & Support</p>
