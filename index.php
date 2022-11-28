@@ -1,12 +1,13 @@
 <?php 
 include "core/config.php";
-include "kamus.php";
-include "core/function.php";
-$sample = array_slice($kamus,0,10);
-$sample = lowerArray($sample);
-$sample = cekKataArray($sample);
 
-// $sample2 = ["aku-kan","mencoba"];
+session_start();
+
+if(!isset($_SESSION['username'])){
+    header("Location: login.php");
+    exit;
+    // echo "KOSONG";
+}
 ?>
 
 
@@ -52,10 +53,16 @@ $sample = cekKataArray($sample);
         <!-- Sample Teks -->
         <div class="container flex">
             <div class="teksLabel" id="sampleTeksContainer">
-                <!-- <p class="sampleTeks" id="sampleTeks">Kalimat sedang dimuat...</p> -->
-                <?php foreach($sample as $k => $v) : ?>
-                    <p class="kata kata<?=$k ?>"><?=$v ?></p><span>&nbsp;</span>
-                <?php endforeach; ?>
+                <p class="kata kata0">kata0</p><span>&nbsp;</span>
+                <p class="kata kata1">kata1</p><span>&nbsp;</span>
+                <p class="kata kata2">kata2</p><span>&nbsp;</span>
+                <p class="kata kata3">kata3</p><span>&nbsp;</span>
+                <p class="kata kata4">kata4</p><span>&nbsp;</span>
+                <p class="kata kata5">kata5</p><span>&nbsp;</span>
+                <p class="kata kata6">kata6</p><span>&nbsp;</span>
+                <p class="kata kata7">kata7</p><span>&nbsp;</span>
+                <p class="kata kata8">kata8</p><span>&nbsp;</span>
+                <p class="kata kata9">kata9</p><span>&nbsp;</span>
             </div>
         </div>
         <!-- End Sample Teks -->
@@ -120,6 +127,5 @@ $sample = cekKataArray($sample);
     <script src="js/function.js"></script>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/fetch.js"></script>
 </body>
 </html>

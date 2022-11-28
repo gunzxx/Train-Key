@@ -29,7 +29,7 @@ $result = $con->getAssoc();
                         </div>
                         <div id="chat-container" class="chat-container">
                             <div class="header-komen">
-                                <p class="username"><?=$res['userid'] ?></p>
+                                <p class="username"><?=$res['user_id'] ?></p>
                                 <p class="tanggal"><?=$res['tanggal'] ?></p>
                             </div>
                             <p class="text-chat"><?=$res['textchat'] ?></p>
@@ -57,6 +57,7 @@ $result = $con->getAssoc();
 
 
     <script src="js/jquery.min.js"></script>
+    <script src="js/function.js"></script>
     <script src="js/script.js"></script>
 </div>
 </body>

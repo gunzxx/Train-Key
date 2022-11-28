@@ -13,7 +13,7 @@ if (isset($_POST['komen'])){
     }
 }
 
-$query = "SELECT * FROM chat ORDER BY tanggal DESC LIMIT 20";
+$query = "SELECT * FROM chat ORDER BY tanggal DESC LIMIT {$_POST['limit']}";
 $con->query($query);
 $result = $con->getAssoc();
 ?>
@@ -22,10 +22,11 @@ $result = $con->getAssoc();
     <div class="komen-container">
         <div class="profile">
             <p>x</p>
+            <p id="rowcount"><?=$con->rowCount() ?></p>
         </div>
         <div id="chat-container" class="chat-container">
             <div class="header-komen">
-                <p class="username"><?=$res['userid'] ?></p>
+                <p class="username"><?=$res['user_id'] ?></p>
                 <p class="tanggal"><?=$res['tanggal'] ?></p>
             </div>
             <p class="text-chat"><?=$res['textchat'] ?></p>

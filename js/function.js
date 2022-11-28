@@ -55,8 +55,8 @@ function checkKey(){
             key=""
             result = inputValue+key;
         }
-        console.log(result);
-        console.log(result.length);
+        // console.log(result);
+        // console.log(result.length);
     })
 }
 
@@ -85,34 +85,31 @@ function cekindexhuruf(){
 
 
 let mundur;
-let countTime = 10;
+let countTime = 60;
 function countdown(){
     document.getElementById('countdown').innerHTML = countTime;
     mundur = setInterval(function(){
         countTime -= 1;
         if (countTime <= 0 ){
-            clearInterval(mundur);
             countTime = 0;
             userInput.hidden=true;
             restart.hidden=true;
             document.getElementById('teksCount').style.opacity=0;
+            clearInterval(mundur);
 
-            // console.log("end");
             let id = document.getElementById("id").textContent;
             console.log(id);
             $.ajax({
                 url: "ajax/update.php",
                 data:
                     {
-                        upload:'true',
+                        update:'true',
                         id:id,
                         highpoin:poin
                     },
                 method:'post',
-                dataType:'json',
                 success: function(e){
-                    console.log(e);
-                    console.log("oke");
+                    console.log("ajax oke");
                 },
                 error:function(e){
                     console.log(e);
@@ -127,23 +124,23 @@ function countdown(){
 
 
 
-function ajaxTeks(){
-    const sampleTeksContainer = document.getElementById('sampleTeksContainer');
-    var xhr = new XMLHttpRequest();
+// function ajaxTeks(){
+//     const sampleTeksContainer = document.getElementById('sampleTeksContainer');
+//     var xhr = new XMLHttpRequest();
 
-    // cek kesiapan ajax
-    xhr.onreadystatechange = function(){
-        if ( xhr.readyState == 4 && xhr.status == 200 ){
-            sampleTeksContainer.innerHTML = xhr.responseText;
-        }
-    }
-    // eksekusi ajax
-    xhr.open('GET','ajax/teks.php' ,true);
-    xhr.send();
+//     // cek kesiapan ajax
+//     xhr.onreadystatechange = function(){
+//         if ( xhr.readyState == 4 && xhr.status == 200 ){
+//             sampleTeksContainer.innerHTML = xhr.responseText;
+//         }
+//     }
+//     // eksekusi ajax
+//     xhr.open('GET','ajax/teks.php' ,true);
+//     xhr.send();
 
-    indexkata=0;
-    indexhuruf=0;
-}
+//     indexkata=0;
+//     indexhuruf=0;
+// }
 
 
 function setPoin(){

@@ -1,5 +1,16 @@
-// let r,g=0,b=0;
+function showLoading(){
+    document.getElementById("loading-container").style.opacity = 1;
+    setTimeout(function(){
+        document.getElementById("loading-container").style.opacity = 0;
+    },700)
+}
+function hideLoading(){
+    document.getElementById("loading-container").style.opacity = 0;
+}
 
+
+
+// let r,g=0,b=0;
 
 const chattext = document.querySelectorAll(".chat-text");
 chattext.forEach(function(cc){
@@ -14,4 +25,3 @@ chattext.forEach(function(cc){
 
     cc.style.backgroundColor = "rgb("+r+","+g+","+b+")"
 })
-

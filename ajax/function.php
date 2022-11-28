@@ -1,7 +1,6 @@
 <?php
 
 include "../kamus.php";
-// include "../kamus.php";
 
 
 function lowerArray(array $kamus){

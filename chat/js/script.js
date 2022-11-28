@@ -4,13 +4,17 @@ let kirimkomen = document.getElementById('kirimkomen');
 
 
 function ajaxKomen(){
+    let limit = document.querySelectorAll('.komen-container').length;
+    if($(window).scrollTop()+$(window).height() >= ($(document).height() - 50)){
+        limit+=20;
+    }
     $.ajax({
         url:"ajax/insertkomen.php",
         method:'post',
         data:{
             komen : 'true',
-            tekskomen: tekskomen.value
-
+            tekskomen: tekskomen.value,
+            limit : limit
         },
         success : function(data){
             chatarea.innerHTML = data
@@ -52,17 +56,14 @@ let chat = setInterval(function(){
         },
         success : function(data){
             chatarea.innerHTML = data
-            let rowcount = document.getElementById('rowcount');
+            let rowcount = document.querySelector('.rowcount');
             if(rowcount.textContent < limit){
                 let lastcomment = document.getElementById('last-comment')
                 lastcomment.style.display = 'flex';
+                hideLoading();
             }
-            if(rowcount.textContent = limit){
+            else if(rowcount.textContent == limit){
                 showLoading();
-            }
-            if(rowcount.textContent > limit){
-                let lastcomment = document.getElementById('last-comment')
-                lastcomment.style.display = 'flex';
             }
         },
         error: function(data){
@@ -74,6 +75,7 @@ let chat = setInterval(function(){
 
 
 window.addEventListener('load',function(){
+    limit = 20;
     setTimeout(function(){
         document.body.style.overflow = 'visible';
         document.getElementById("loading-container").style.opacity = 0;
@@ -81,16 +83,7 @@ window.addEventListener('load',function(){
 
     setTimeout(function(){
         document.getElementById("loading-container").style.position = 'relative';
-        document.getElementById("loading-container").style.height = '100px';
+        document.getElementById("loading-container").style.height = '70px';
         document.getElementById("loading-container").style.backgroundColor = '#fff';
     },1500)
 })
-
-
-
-function showLoading(){
-    document.getElementById("loading-container").style.opacity = 1;
-    setTimeout(function(){
-        document.getElementById("loading-container").style.opacity = 0;
-    },700)
-}

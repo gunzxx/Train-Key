@@ -8,6 +8,7 @@ body{
     margin-bottom: 300px;
     padding: 0;
     width: 100%;
+    background-color: rgb(160, 160, 59);
     background: url("../img/bg.jpg");
     background-size: cover;
 }

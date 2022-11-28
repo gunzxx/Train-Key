@@ -16,7 +16,7 @@ let poin = 0;
 let userInput = document.getElementById('userInput')
 userInput.addEventListener("focus",()=>{
     let classkata2 = ".kata"+indexkata;
-    document.querySelector(classkata2).style.backgroundColor = '#aaa';
+    document.querySelector(classkata2).style.backgroundColor = '#ccc';
     
 })
 
@@ -37,7 +37,7 @@ document.getElementById("restart").addEventListener("click",(e)=>{
         subkata.style.backgroundColor = 'transparent';
     });
     
-    countTime = 10;
+    countTime = 60;
     document.getElementById('countdown').innerHTML = countTime;
     document.getElementById('userInput').value = "";
 
@@ -53,26 +53,38 @@ document.getElementById("restart").addEventListener("click",(e)=>{
 })
 
 
-userInput.addEventListener("keydown",(e)=>{
+window.addEventListener('load',()=>{
     let sample = document.querySelectorAll(".kata");
-    let classkata = ".kata";
-    classkata+=indexkata;
-    let kata = sample[indexkata].textContent;
-    
+    // console.log(sample);
+    indexkamus = 0;
+    for(let i = 0;i<10;i++){
+        sample[i].innerHTML = kamus[indexkamus].toLowerCase();
+        indexkamus++;
+    }
+})
 
+
+userInput.addEventListener("keydown",(e)=>{
     let key = e.key;
     let inputValue = userInput.value;
     let result;
+    
+    let sample = document.querySelectorAll(".kata");
+
+    let classkata = ".kata";
+    classkata+=indexkata;
+    console.log(indexkata);
+    let kata = sample[indexkata].textContent;
+
     if (e.ctrlKey) //cek CTRL
     {
         e.preventDefault();
     }
-    else if(e.which==32 || e.which==13) //cek enter dan spasi
+    if(e.which==32 || e.which==13) //cek enter dan spasi
     {
         e.preventDefault();
-        console.log(inputValue.length,kata.length);
         if(inputValue.length!=kata.length){
-            document.querySelector(classkata).style.backgroundColor = 'yellow';
+            document.querySelector(classkata).style.backgroundColor = 'rgb(160, 160, 59)';
         }
         userInput.value="";
         inputValue = ""
@@ -81,15 +93,24 @@ userInput.addEventListener("keydown",(e)=>{
         
 
         
-        indexkata+=1;
-        
-        if(indexkata>=sample.length){
-            ajaxTeks();
+        if(indexkata>=sample.length-1){
+            // ajaxTeks();
+            for(let i = 0;i<10;i++){
+                sample[i].innerHTML = kamus[indexkamus].toLowerCase();
+                sample[i].style.backgroundColor = 'transparent';
+                indexkamus++;
+            }
+        }
+        if (indexkata<=9){
+            indexkata++;
+        }
+        if(indexkata>9){
+            indexkata=0;
         }
         
         let classkata3 = ".kata";
         classkata3+=indexkata;
-        document.querySelector(classkata3).style.backgroundColor = '#aaa';
+        document.querySelector(classkata3).style.backgroundColor = '#ccc';
         indexhuruf=0;
     }
 
@@ -121,7 +142,6 @@ userInput.addEventListener("keydown",(e)=>{
             indexhuruf+=1;
         }else if (indexhuruf>=kata.length){
             e.preventDefault();
-            indexhuruf=indexhuruf;
         }
         if (result == kata.substring(0,indexhuruf)){
             poinbenar+=1;
@@ -142,17 +162,12 @@ userInput.addEventListener("keydown",(e)=>{
         e.preventDefault()
         key=""
         result = inputValue+key;
-        // if (result == kata.substring(0,indexhuruf)){
-        //     document.querySelector(classkata).style.backgroundColor = 'green';
-        // }else if(result!=kata.substring(0,indexhuruf)){
-        //     document.querySelector(classkata).style.backgroundColor = 'red';
-        // }
     }
 
 
-    console.log("index huruf"+indexhuruf);
-    console.log("index kata"+indexkata);
-    console.log("class kata"+classkata);
+    // console.log("index huruf"+indexhuruf);
+    // console.log("index kata"+indexkata);
+    // console.log("class kata"+classkata);
 })
 
 
