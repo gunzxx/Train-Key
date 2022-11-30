@@ -1,4 +1,3 @@
-// let dump = [];
 let indexkata = 0;
 let indexhuruf = 0;
 
@@ -29,13 +28,22 @@ function keycoun(){
 keycoun();
 
 
-let samplekata = document.querySelectorAll(".kata");
 document.getElementById("restart").addEventListener("click",(e)=>{
+    let samplekata = document.querySelectorAll(".kata");
     clearInterval(mundur);
+    
+    shuffle(kamus);
+    for(let i = 0;i<10;i++){
+        samplekata[i].innerHTML = kamus[indexkamus].toLowerCase();
+        indexkamus++;
+    }
 
     samplekata.forEach(subkata => {
         subkata.style.backgroundColor = 'transparent';
     });
+
+    userInput.hidden=false;
+    document.querySelector('.timer').style.display='flex';
     
     countTime = 60;
     document.getElementById('countdown').innerHTML = countTime;
@@ -73,7 +81,6 @@ userInput.addEventListener("keydown",(e)=>{
 
     let classkata = ".kata";
     classkata+=indexkata;
-    console.log(indexkata);
     let kata = sample[indexkata].textContent;
 
     if (e.ctrlKey) //cek CTRL
@@ -163,14 +170,13 @@ userInput.addEventListener("keydown",(e)=>{
         key=""
         result = inputValue+key;
     }
-
-
-    // console.log("index huruf"+indexhuruf);
-    // console.log("index kata"+indexkata);
-    // console.log("class kata"+classkata);
 })
 
 
+window.addEventListener("load",function(){
+    userInput.removeAttribute("disabled");
+    userInput.placeholder = "Ketik disini";
+})
 
 
 

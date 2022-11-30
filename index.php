@@ -1,13 +1,14 @@
 <?php 
 include "core/config.php";
+include "core/database.php";
 
-session_start();
+$con = new Database();
+$query = "SELECT * FROM poin WHERE user_id = 1";
+$con->query($query);
+$res = $con->getSingle();
 
-if(!isset($_SESSION['username'])){
-    header("Location: login.php");
-    exit;
-    // echo "KOSONG";
-}
+// session_start();
+
 ?>
 
 
@@ -31,7 +32,7 @@ if(!isset($_SESSION['username'])){
             <h1>Train Key</h1>
         </a>
         <div class="sub-nav">
-            <a class="nav-list" href="chat" target="_blank">
+            <a class="nav-list" href="forum" target="_blank">
                 <p>Forum</p>
             </a>
             <a class="nav-list">
@@ -53,16 +54,16 @@ if(!isset($_SESSION['username'])){
         <!-- Sample Teks -->
         <div class="container flex">
             <div class="teksLabel" id="sampleTeksContainer">
-                <p class="kata kata0">kata0</p><span>&nbsp;</span>
-                <p class="kata kata1">kata1</p><span>&nbsp;</span>
-                <p class="kata kata2">kata2</p><span>&nbsp;</span>
-                <p class="kata kata3">kata3</p><span>&nbsp;</span>
-                <p class="kata kata4">kata4</p><span>&nbsp;</span>
-                <p class="kata kata5">kata5</p><span>&nbsp;</span>
-                <p class="kata kata6">kata6</p><span>&nbsp;</span>
-                <p class="kata kata7">kata7</p><span>&nbsp;</span>
-                <p class="kata kata8">kata8</p><span>&nbsp;</span>
-                <p class="kata kata9">kata9</p><span>&nbsp;</span>
+                <p class="kata kata0"></p><span>&nbsp;</span>
+                <p class="kata kata1"></p><span>&nbsp;</span>
+                <p class="kata kata2"></p><span>&nbsp;</span>
+                <p class="kata kata3">Masih loading harap sabar....</p><span>&nbsp;</span>
+                <p class="kata kata4"></p><span>&nbsp;</span>
+                <p class="kata kata5"></p><span>&nbsp;</span>
+                <p class="kata kata6"></p><span>&nbsp;</span>
+                <p class="kata kata7"></p><span>&nbsp;</span>
+                <p class="kata kata8"></p><span>&nbsp;</span>
+                <p class="kata kata9"></p><span>&nbsp;</span>
             </div>
         </div>
         <!-- End Sample Teks -->
@@ -73,7 +74,7 @@ if(!isset($_SESSION['username'])){
             <!-- User Input -->
             <div class="inputArea">
                 <!-- <label for="masukan">Masukkan teks</label> -->
-                <input id="userInput" autocomplete="off" placeholder="Ketuk untuk memulai...">
+                <input id="userInput" autocomplete="off" placeholder="Tunggu ya :>" disabled="">
                 <button id="restart">Restart</button>
             </div>
             <!-- End User Input -->
@@ -82,8 +83,8 @@ if(!isset($_SESSION['username'])){
         
         
         <!-- Timer -->
-        <div class="timer text-center" id="teksCount">
-            <p class="timerTeks" id="countdown">60</p>
+        <div class="timer text-center" id="countdown">
+            <p class="timerTeks" id="tekscount">60</p>
         </div>
         <!-- End Timer -->
         
@@ -110,7 +111,7 @@ if(!isset($_SESSION['username'])){
                     </tr>
                     <tr>
                         <td class="col1"><p>Poin tertinggi : </p></td>
-                        <td class="col2"><p id="highPoin" name="highPoin" value="10">Poin</p></td>
+                        <td class="col2"><p id="high_poin" name="high_poin" value="10"><?=$res['high_poin'] ?></p></td>
                     </tr>
                 </tbody>
             </table>
@@ -120,7 +121,7 @@ if(!isset($_SESSION['username'])){
     </div>
     <!-- End Game contain -->
     
-    <span id="id" style="display: none;">1</span>
+    <span id="user_id" style="display: none;">1</span>
     
     
     <script src="js/jquery.min.js"></script>

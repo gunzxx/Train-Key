@@ -8,21 +8,25 @@ function ajaxKomen(){
     if($(window).scrollTop()+$(window).height() >= ($(document).height() - 50)){
         limit+=20;
     }
-    $.ajax({
-        url:"ajax/insertkomen.php",
-        method:'post',
-        data:{
-            komen : 'true',
-            tekskomen: tekskomen.value,
-            limit : limit
-        },
-        success : function(data){
-            chatarea.innerHTML = data
-        },
-        error: function(data){
-            console.log(data);
-        }
-    })
+    let tekskomen = document.getElementById('tekskomen');
+    // console.log(tekskomen.value.length);
+    if(tekskomen.value.length>0){
+        $.ajax({
+            url:"https://pbw.ilkom.unej.ac.id/tia/tia212410102033/pweb/forum/ajax/insertkomen.php",
+            method:'post',
+            data:{
+                komen : 'true',
+                tekskomen: tekskomen.value,
+                limit : limit
+            },
+            success : function(data){
+                chatarea.innerHTML = data
+            },
+            error: function(data){
+                console.log(data);
+            }
+        })
+    }
 }
 
 
@@ -87,3 +91,4 @@ window.addEventListener('load',function(){
         document.getElementById("loading-container").style.backgroundColor = '#fff';
     },1500)
 })
+

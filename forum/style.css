@@ -104,6 +104,7 @@ body{
     background-color: #aaa;
     display: flex;
     justify-content: space-between;
+    z-index: 2;
 }
 input{
     width: 90%;

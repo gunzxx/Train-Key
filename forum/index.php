@@ -29,7 +29,7 @@ $result = $con->getAssoc();
                         </div>
                         <div id="chat-container" class="chat-container">
                             <div class="header-komen">
-                                <p class="username"><?=$res['user_id'] ?></p>
+                                <p class="username"><?=$res['user_id'] ?><span>&nbsp;</span>Anonymous</p>
                                 <p class="tanggal"><?=$res['tanggal'] ?></p>
                             </div>
                             <p class="text-chat"><?=$res['textchat'] ?></p>

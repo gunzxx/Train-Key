@@ -55,8 +55,6 @@ function checkKey(){
             key=""
             result = inputValue+key;
         }
-        // console.log(result);
-        // console.log(result.length);
     })
 }
 
@@ -85,7 +83,7 @@ function cekindexhuruf(){
 
 
 let mundur;
-let countTime = 60;
+let countTime = 10;
 function countdown(){
     document.getElementById('countdown').innerHTML = countTime;
     mundur = setInterval(function(){
@@ -93,66 +91,55 @@ function countdown(){
         if (countTime <= 0 ){
             countTime = 0;
             userInput.hidden=true;
-            restart.hidden=true;
-            document.getElementById('teksCount').style.opacity=0;
+            document.querySelector('.timer').style.display='none';
             clearInterval(mundur);
 
-            let id = document.getElementById("id").textContent;
-            console.log(id);
-            $.ajax({
-                url: "ajax/update.php",
-                data:
-                    {
-                        update:'true',
-                        id:id,
-                        highpoin:poin
+            let id = document.getElementById("user_id").textContent;
+
+            let highpoin = document.getElementById("high_poin").textContent;
+            if(poin>highpoin){
+                let highpoin_text = document.getElementById("high_poin");
+                
+                $.ajax({
+                    url: "https://pbw.ilkom.unej.ac.id/tia/tia212410102033/pweb/ajax/update.php",
+                    data:
+                        {
+                            update:'true',
+                            id:id,
+                            highpoin:poin
+                        },
+                        dataType: 'json',
+                    method:'post',
+                    success: function(e){
+                        highpoin_text.textContent = e.high_poin;
+                        console.log(e.high_poin);
+                        console.log("ajax oke");
                     },
-                method:'post',
-                success: function(e){
-                    console.log("ajax oke");
-                },
-                error:function(e){
-                    console.log(e);
-                    console.log(arguments);
-                    console.log("gagal");
-                }
-            });
+                    error:function(e){
+                        console.log(e);
+                        console.log(arguments);
+                        console.log("gagal");
+                    }
+                });
+            }
+            if(poin<=highpoin){
+                console.log("Poin kecil");
+            }
         }
         document.getElementById('countdown').innerHTML = countTime;
     },1000)
 }
 
 
-
-// function ajaxTeks(){
-//     const sampleTeksContainer = document.getElementById('sampleTeksContainer');
-//     var xhr = new XMLHttpRequest();
-
-//     // cek kesiapan ajax
-//     xhr.onreadystatechange = function(){
-//         if ( xhr.readyState == 4 && xhr.status == 200 ){
-//             sampleTeksContainer.innerHTML = xhr.responseText;
-//         }
-//     }
-//     // eksekusi ajax
-//     xhr.open('GET','ajax/teks.php' ,true);
-//     xhr.send();
-
-//     indexkata=0;
-//     indexhuruf=0;
-// }
-
-
 function setPoin(){
-    const huruf = document.getElementById("huruf");
-    const benar = document.getElementById("benar");
-    const salah = document.getElementById("salah");
-    const wpm = document.getElementById("poin");
-
+    let huruf = document.getElementById("huruf");
+    let benar = document.getElementById("benar");
+    let salah = document.getElementById("salah");
+    let wpm = document.getElementById("poin");
 
     huruf.innerHTML=banyakhuruf;
     benar.innerHTML=poinbenar;
     salah.innerHTML=poinsalah;
     poin = poinbenar-poinsalah;
-    wpm.innerHTML=poinbenar-poinsalah;
+    wpm.innerHTML=poin;
 }
