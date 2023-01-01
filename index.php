@@ -1,15 +1,27 @@
 <?php 
-include "core/config.php";
 include "core/database.php";
+require_once "core/function.php";
+cekSesi("login.php");
+
 
 $con = new Database();
-$query = "SELECT * FROM poin WHERE user_id = 1";
+$query = "SELECT u.nick_name as 'nick_name', p.high_poin as 'high_poin', p.tanggal as 'tanggal', u.profile_image , u.user_id as user_id
+            FROM poin as p 
+            JOIN user u USING(user_id) 
+            ORDER BY high_poin DESC, tanggal ASC
+            LIMIT 10";
 $con->query($query);
-$res = $con->getSingle();
+$users = $con->getAssoc();
 
-// session_start();
+// echo $_SESSION['trainkey_id  '];
+$query = "SELECT * FROM user as u join poin as p using(user_id) WHERE u.user_id = '{$_SESSION['trainkey_id']}';";
+$con->query($query);
+$user = $con->getSingle();
 
+
+// var_dump($_COOKIE);
 ?>
+
 
 
 <!DOCTYPE html>
@@ -19,16 +31,15 @@ $res = $con->getSingle();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Train Key</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins');
-    </style>
+    <link rel="icon" type="image/x-icon" href="https://pbw.ilkom.unej.ac.id/tia/tia212410102033/pweb/img/logo.png">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <!-- Navbar -->
-    <div class="nav">
+    <nav class="nav">
         <a href="" class="brand">
+            <img src="img/logo.png" alt="" width="70px">
             <h1>Train Key</h1>
         </a>
         <div class="sub-nav">
@@ -42,17 +53,64 @@ $res = $con->getSingle();
                 <p>Documentation</p>
             </a>
         </div>
-        <div class="profile">
-
+        <div class="profile-container">
+            <img src="img/pfp/pfp<?=$user['profile_image'] ?>.png" alt="" class="profile" id="profile">
         </div>
-    </div>
+    </nav>
     <!-- End Navbar -->
 
-    <!-- Game contain -->
-    <div id="gamecontainer">
+    <div class="profile-menu" id="profile-menu">
+        <a class="menu" href="editprofil">Edit profile</a>
+        <a class="menu" id="logoutbtn">Logout</a>
+    </div>
+
+    <!-- BOX -->
+    <div class="box-container">
+        <!-- Rank -->
+        <div class="itembox1">
+            <div class="rank-container">
+                <h3 class="text-center">Rank</h3>
+                <input type="text" id="search" class="search" placeholder="Cari user">
+                <table class="rank" id="rank">
+                    <thead>
+                        <td>No.</td>
+                        <td colspan="2" style="text-align: center;">Nama</td>
+                        <td>Poin</td>
+                        <!-- <td>Tanggal</td> -->
+                    </thead>
+                    <tbody id="rank_body" class="rank-body">
+                        <?php foreach($users as $k => $v) {?>
+                            <?php if($v['user_id'] == $_SESSION['trainkey_id']){ ?>
+                                <tr style="background-color:green;">
+                                    <td class="no"><?=$k+1 ?></td>
+                                    <td><img width="20px" height="20px" src="img/pfp/pfp<?=$v['profile_image']?>.png" alt=""></td>
+                                    <td class="img"><?=$v['nick_name'] ?></td>
+                                    <td class="data"><?=$v['high_poin'] ?></td>
+                                    <!-- <td class="data" style="font-size:12px;"><?=$v['tanggal'] ?></td> -->
+                                </tr>
+                            <?php } ?>
+                            <?php if($v['user_id'] != $_SESSION['trainkey_id']){ ?>
+                                <tr>
+                                    <td class="no"><?=$k+1 ?></td>
+                                    <td><img width="20px" height="20px" src="img/pfp/pfp<?=$v['profile_image']?>.png" alt=""></td>
+                                    <td class="img"><?=$v['nick_name'] ?></td>
+                                    <td class="data"><?=$v['high_poin'] ?></td>
+                                    <!-- <td class="data" style="font-size:12px;"><?=$v['tanggal'] ?></td> -->
+                                </tr>
+                            <?php } ?>
+                        <?php } ?>
+                    </tbody>
+                </table>
+                <p class="showall" id="showall">Show all</p>
+            </div>
+        </div>
+        <!-- End Rank -->
         
-        <!-- Sample Teks -->
-        <div class="container flex">
+        <!-- Game container -->
+        <div id="gamecontainer" class="game-container itembox2">
+            
+
+            <!-- Sample Teks -->
             <div class="teksLabel" id="sampleTeksContainer">
                 <p class="kata kata0"></p><span>&nbsp;</span>
                 <p class="kata kata1"></p><span>&nbsp;</span>
@@ -63,65 +121,60 @@ $res = $con->getSingle();
                 <p class="kata kata6"></p><span>&nbsp;</span>
                 <p class="kata kata7"></p><span>&nbsp;</span>
                 <p class="kata kata8"></p><span>&nbsp;</span>
-                <p class="kata kata9"></p><span>&nbsp;</span>
+                <p class="kata kata9"></p>
             </div>
-        </div>
-        <!-- End Sample Teks -->
-        
-        
-        <div class="userArea" id="userArea">
+            <!-- End Sample Teks -->
+            
             
             <!-- User Input -->
-            <div class="inputArea">
-                <!-- <label for="masukan">Masukkan teks</label> -->
-                <input id="userInput" autocomplete="off" placeholder="Tunggu ya :>" disabled="">
-                <button id="restart">Restart</button>
-            </div>
+            <input id="userInput" autocomplete="off" placeholder="Tunggu ya :>" disabled="">
             <!-- End User Input -->
             
+            
+            <!-- Timer -->
+            <div class="timer" id="countdown-container">
+                <p class="timerTeks text-center" id="countdown">60</p>
+                <button id="restart">Restart</button>
+            </div>
+            <!-- End Timer -->
+            
         </div>
+        <!-- End Game contain -->
         
         
-        <!-- Timer -->
-        <div class="timer text-center" id="countdown">
-            <p class="timerTeks" id="tekscount">60</p>
-        </div>
-        <!-- End Timer -->
-        
-
         <!-- Poin -->
-        <div class="flex">
-            <table>
+        <div class="score-container itembox3">
+            <table class="score">
                 <tbody>
                     <tr>
                         <td class="col1"><p>Banyak huruf diketik : </p></td>
-                        <td class="col2"><p id="huruf" name="poinNow" value="">Poin</p></td>
+                        <td class="col2"><p id="huruf" name="poinNow" value="">0</p></td>
                     </tr>
                     <tr>
                         <td class="col1"><p>Benar : </p></td>
-                        <td class="col2"><p id="benar" name="highPoin" value="10">Poin</p></td>
+                        <td class="col2"><p id="benar" name="highPoin" value="10">0</p></td>
                     </tr>
                     <tr>
                         <td class="col1"><p>Salah : </p></td>
-                        <td class="col2"><p id="salah" name="highPoin" value="10">Poin</p></td>
+                        <td class="col2"><p id="salah" name="highPoin" value="10">0</p></td>
                     </tr>
                     <tr>
                         <td class="col1"><p>Poin : </p></td>
-                        <td class="col2"><p id="poin" name="highPoin" value="10">Poin</p></td>
+                        <td class="col2"><p id="poin" name="highPoin" value="10">0</p></td>
                     </tr>
                     <tr>
                         <td class="col1"><p>Poin tertinggi : </p></td>
-                        <td class="col2"><p id="high_poin" name="high_poin" value="10"><?=$res['high_poin'] ?></p></td>
+                        <td class="col2"><p id="high_poin" name="high_poin" value="10"><?=$user['high_poin'] ?></p></td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <!-- End Poin -->
-
     </div>
-    <!-- End Game contain -->
+    <!-- End BOX -->
     
-    <span id="user_id" style="display: none;">1</span>
+    <!-- <?=$user['user_id'] ?> -->
+    <span id="user_id" style="display: none;"><?=$user['user_id'] ?></span>
     
     
     <script src="js/jquery.min.js"></script>

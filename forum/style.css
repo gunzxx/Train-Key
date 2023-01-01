@@ -1,14 +1,52 @@
 *{
     margin: 0;
     padding: 0;
-    box-sizing: border-box !important;
-    /* color: #eee; */
+    box-sizing: border-box;
+    color: #eee;
+    color: #6C4AB6;
+}
+
+a{
+    font-family: 'Poppins', sans-serif;
+    color: inherit;
+    font-size: 30px;
+    display: flex;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+p{
+    font-size: 14px;
+}
+
+h1{
+    padding-left: 50px;
 }
 
 body{
-    padding-top: 100px;
-    padding-bottom: 100px;
+    /* padding: 80px 0; */
+    width: 100%;
+    height: 100%;
     overflow: hidden;
+    background: url("../img/forum-bg.png");
+    /* background-size: auto; */
+}
+
+.nav *{
+    color: #eee;
+}
+.nav{
+    position: relative;
+    height: 80px;
+    /* background: linear-gradient(180deg, #7DE5ED, rgba(0,0,0,0)); */
+    display: flex;
+    justify-content: left;
+    padding: 30px;
+    align-items: center;
+}
+.profile_img{
+    width: 40px;
+    height: 40px;
 }
 
 
@@ -19,24 +57,27 @@ body{
     align-items: center;
 }
 .forum-container{
-    width: 80%;
+    width: 75%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: start;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #8D72E1;
+}
+.forum-container .judul{
+    padding-top: 20px;
+}
+.forum-container .subjudul{
+    padding-bottom: 20px;
+}
+.forum-container .judul,.forum-container .subjudul{
+    color: #eee;
+    text-shadow: 0 0 3px #000;
 }
 
-
-.loadmorekomen{
-    width: 50%;
-    min-height: 100px;
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
-    background-color: red;
-}
 .chat-area{
-    width: 50%;
+    width: 100%;
     display: flex;
     flex-direction: column; 
     justify-content: center;
@@ -45,30 +86,53 @@ body{
     width: 100%;
     padding: 10px 0;
     margin: 10px 0;
-    display: flex;
-    justify-content: space-evenly;
-    /* background-color: #ccc; */
-}
-.profile{
-    width: 40px;
-    height: 40px;
     padding: 10px 0;
-    border-radius: 50%;
-    background-color: #eee;
+    margin: 10px 0;
     display: flex;
-    align-items: center;
+    align-items: start;
+    justify-content: start;
+}
+.komen-container.my-comment{
+    width: 100%;
+    padding: 10px 0;
+    margin: 10px 0;
+    display: flex;
+    align-items: start;
+    justify-content: end;
+}
+.profile-container{
+    height: 100%;
+    padding: 10px;
+    padding-top: 0;
+    display: flex;
+    align-items: start;
     justify-content: center;
 }
+.profile_img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #eee;
+}
 .chat-container{
-    width: 90%;
+    width: 40%;
     height: 100%;
-    padding: 20px;
+    padding: 5px 20px 20px;
     border-radius: 0 20px 0 20px;
     box-shadow: 3px 3px 3px rgba(0,0,0,.25);
     background-color: #eee;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: start;
+}
+.chat-container.my-comment{
+    background-color: lightgreen;
+    background-color: #B9E0FF;
+    border-radius: 20px 0 20px 0;
+}
+.chat-container .username{
+    font-weight: bold;
 }
 .header-komen{
     width: 100%;
@@ -101,19 +165,40 @@ body{
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
-    background-color: #aaa;
+    background: rgb(12,34,144);
+    background: linear-gradient(180deg, #6C4AB6 8%, rgba(53,99,220,1) 38%, rgba(26,87,244,1) 61%, rgba(49,13,171,1) 90%); 
     display: flex;
     justify-content: space-between;
     z-index: 2;
 }
 input{
     width: 90%;
-    padding: 10px;
+    padding: 7px 10px;
+    padding-left: 15px;
     font-size: 16px;
-    border-radius: 10px;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    background-color: #eee;
+    box-shadow: 0 0 2px #6C4AB6;
+}
+input:focus{
+    box-shadow: 0 0 2px #6C4AB6;
+}
+input::placeholder{
+    color: #6C4AB6;
+    font-size: 14px;
 }
 button{
     width: 8%;
+    padding: 5px 10px;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    background-color: #6C4AB6;
+    color: #eee;
+    box-shadow: 0 0 3px #eee;
+    cursor: pointer;
 }
 
 
@@ -121,29 +206,30 @@ button{
 
 /* Loader */
 .loading-container{
-    position: fixed;
+    position: relative;
     width: 100%;
-    height: 100%;
+    height: 200px;
     top: 0;
     background-color: #eee;
+    background-color: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: .3s;
+    opacity: 0;
 }
 
 .loading-outer{
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    /* border: 5px solid rgba(0,0,0, .8); */
     border: 5px solid transparent;
     display : flex;
     justify-content: center;
     align-items: center;
-    border-left-color: red;
-    border-top-color: green;
-    border-right-color: blue;
+    border-left-color: #6C4AB6;
+    border-top-color: #B9E0FF;
+    border-right-color: #FFE15D;
     animation: rotate-outer 1.5s ease-in infinite forwards;
     position: relative;
     transition: .5s;
@@ -152,7 +238,7 @@ button{
     width: 35px;
     height: 35px;
     border-radius: inherit;
-    border: 5px solid rgba(0,0,0,.8);;
+    border: 5px solid #eee;
     border-top-color: transparent;
     border-bottom-color: transparent;
     animation: rotate-inner 1.5s ease-in infinite forwards;
@@ -183,4 +269,5 @@ button{
         transform: rotate(360deg);
     }
 }
+
 

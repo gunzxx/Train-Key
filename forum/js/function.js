@@ -1,8 +1,8 @@
 function showLoading(){
     document.getElementById("loading-container").style.opacity = 1;
-    setTimeout(function(){
-        document.getElementById("loading-container").style.opacity = 0;
-    },700)
+    // setTimeout(function(){
+    //     document.getElementById("loading-container").style.opacity = 0;
+    // },700)
 }
 function hideLoading(){
     document.getElementById("loading-container").style.opacity = 0;
@@ -25,3 +25,51 @@ chattext.forEach(function(cc){
 
     cc.style.backgroundColor = "rgb("+r+","+g+","+b+")"
 })
+
+
+
+function showNotify(){
+    notify = document.getElementById("notify");
+    notify.style.right = 0;
+    setTimeout(()=>{
+        notify.style.right='-500px';
+    },1000)
+}
+
+
+function ajaxKomen(){
+    let limit = document.querySelectorAll('.komen-container').length;
+    if($(window).scrollTop()+$(window).height() >= ($(document).height())){
+        limit+=20;
+    }
+    let tekskomen = document.getElementById('tekskomen').value;
+    for (let i = 0; i < tekskomen.length; i++) {
+        tekskomen = tekskomen.trim();
+    }
+    
+    if(tekskomen.length<=0){
+        komen = document.getElementById("tekskomen");
+        komen.value = "";
+        notify = document.getElementById("notify");
+        notify.textContent = "Komen kosong";
+        showNotify();
+    }
+
+    if(tekskomen.length>0){
+        $.ajax({
+            url:"ajax/insertkomen.php",
+            method:'post',
+            data:{
+                komen : 'true',
+                tekskomen: tekskomen,
+                limit : limit
+            },
+            success : function(data){
+                chatarea.innerHTML = data
+            },
+            error: function(data){
+                console.log(data);
+            }
+        })
+    }
+}

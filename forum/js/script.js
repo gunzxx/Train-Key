@@ -3,32 +3,6 @@ let tekskomen = document.getElementById('tekskomen');
 let kirimkomen = document.getElementById('kirimkomen');
 
 
-function ajaxKomen(){
-    let limit = document.querySelectorAll('.komen-container').length;
-    if($(window).scrollTop()+$(window).height() >= ($(document).height() - 50)){
-        limit+=20;
-    }
-    let tekskomen = document.getElementById('tekskomen');
-    // console.log(tekskomen.value.length);
-    if(tekskomen.value.length>0){
-        $.ajax({
-            url:"https://pbw.ilkom.unej.ac.id/tia/tia212410102033/pweb/forum/ajax/insertkomen.php",
-            method:'post',
-            data:{
-                komen : 'true',
-                tekskomen: tekskomen.value,
-                limit : limit
-            },
-            success : function(data){
-                chatarea.innerHTML = data
-            },
-            error: function(data){
-                console.log(data);
-            }
-        })
-    }
-}
-
 
 tekskomen.addEventListener('keydown',function(e){
     if(e.which==13){
@@ -59,7 +33,7 @@ let chat = setInterval(function(){
             limit :limit
         },
         success : function(data){
-            chatarea.innerHTML = data
+            chatarea.innerHTML = data;
             let rowcount = document.querySelector('.rowcount');
             if(rowcount.textContent < limit){
                 let lastcomment = document.getElementById('last-comment')
@@ -74,6 +48,7 @@ let chat = setInterval(function(){
             console.log(data);
         }
     })
+
 },1000)
 
 
@@ -82,13 +57,13 @@ window.addEventListener('load',function(){
     limit = 20;
     setTimeout(function(){
         document.body.style.overflow = 'visible';
-        document.getElementById("loading-container").style.opacity = 0;
+        document.getElementById("train-container").style.opacity = 0;
     },1000)
 
     setTimeout(function(){
-        document.getElementById("loading-container").style.position = 'relative';
-        document.getElementById("loading-container").style.height = '70px';
-        document.getElementById("loading-container").style.backgroundColor = '#fff';
+        document.getElementById("train-container").style.display = 'none';
+        // document.getElementById("loading-container").style.height = '200px';
+        // document.getElementById("loading-container").style.backgroundColor = 'transparent';
     },1500)
-})
+},{once:true})
 

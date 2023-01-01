@@ -1,4 +1,6 @@
-let abjad = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','-'];
+let abjad = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+let abjadstr = abjad.join("");
+abjadstr += "_";
 let kamus = [
     'aku',
     'akhirulkalam',
@@ -1026,4 +1028,6 @@ let kamus = [
     'zygot'
 ]
 
+kamus = cekSpasi(kamus);
+kamus = cekHuruf(kamus);
 kamus = shuffle(kamus);

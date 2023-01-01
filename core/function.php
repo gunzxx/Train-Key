@@ -1,40 +1,17 @@
 <?php
-
-include "kamus.php";
-// include "../kamus.php";
-
-
-function lowerArray(array $kamus){
-    $dump = [];
-    foreach($kamus as $k)
-    {
-        strtolower($k);
-        array_push($dump,$k);
+function cekSesi(string $location){
+    session_start();
+    if(!isset($_SESSION['trainkey_id'])){
+        header("Location: $location");
     }
-    return $dump;
+    // echo "cek sesi";
 }
 
-
-function cekKataArray(array $smpl)
-{
-    global $abjad;
-    $dumpText = [];
-    foreach($smpl as $v)
-    {
-        $dump = [];
-        $huruf = str_split($v);
-        foreach($huruf as $h){
-            if(in_array($h, $abjad)){
-                array_push($dump,$h);
-            }
-            else{
-                continue;
-            }
-        }
-        $kata = implode("",$dump);
-        array_push($dumpText,$kata);
+function sesiLogin(){
+    session_start();
+    if(isset($_SESSION['trainkey_id'])){
+        header("https://pbw.ilkom.unej.ac.id/tia/tia212410102033/pweb/");
+        exit;
     }
-    return $dumpText;
 }
-
 ?>
