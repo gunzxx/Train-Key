@@ -5,7 +5,7 @@ class Database{
     public function __construct()
     {
         try{
-            $this->con = new PDO("mysql:host=localhost;dbname=uas212410102033;",'tia212410102033','secret',[PDO::ATTR_PERSISTENT=>true,PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
+            $this->con = new PDO("mysql:host=localhost;dbname=uas212410102033;",'tia212410102033','innnn',[PDO::ATTR_PERSISTENT=>true,PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
         }catch(PDOException $e){
             die($e->getMessage());
             exit();
